@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-frontend_response=$(curl --silent --show-error http://localhost:8080/hello.html)
-test "$frontend_response" = "Hello from frontend"
+docker-compose -f docker-compose.e2e.yaml up -d
 
-backend_response=$(curl --silent --show-error http://localhost:8080/api/hello.html)
-test "$backend_response" = "Hello from backend"
+cd e2e
 
-: OK
+echo "waiting for the server to start"
+sleep 15
+
+CI=true npm run test
+
+docker-compose -f ../docker-compose.e2e.yaml down
