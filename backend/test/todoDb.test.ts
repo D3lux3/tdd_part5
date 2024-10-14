@@ -24,4 +24,9 @@ describe('Todo database', () => {
         expect(addedTodo.name).toBe(newTodo.name);
         expect(addedTodo.done).toBe(newTodo.done);
     });
+
+    test('Invalid todo is not added', async () => {
+        const invalidTodo = { done: false };
+        await expect(addNewTodo(invalidTodo)).rejects.toThrow();
+    });
 });
