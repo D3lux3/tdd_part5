@@ -1,4 +1,4 @@
-import { todoSchema } from "../src/utils/todoValidator";
+import { todoSchema, todoSchemaWithId } from "../src/utils/todoValidator";
 
 describe('todoSchema', () => {
 
@@ -13,5 +13,18 @@ describe('todoSchema', () => {
     });
 
 
+});
+
+describe('todoSchema with id', () => {
+
+    test('fails validation when id is missing', () => {
+        const todo = { name: "hello world!", done: false };
+        expect(() => todoSchemaWithId.validateSync(todo)).toThrow();
+    });
+
+    test('sucessfully validates valid objects ', () => {
+        const todo = { id: 'test', name: "hello world!", done: false };
+        expect(() => todoSchemaWithId.validateSync(todo)).not.toThrow();
+    });
 });
 
