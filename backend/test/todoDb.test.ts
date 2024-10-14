@@ -1,5 +1,5 @@
 import { Todo } from "../src/models";
-import { addNewTodo, deleteAllTodos, getTodos } from "../src/services/todoService";
+import { addNewTodo, deleteAllTodos, getTodos, updateTodo } from "../src/services/todoService";
 
 
 describe('Todo database', () => {
@@ -45,8 +45,7 @@ describe('Todo database', () => {
         const addedTodo = await addNewTodo(newTodo);
 
         const renamedTodo = { ...addedTodo, name: 'Updated todo' };
-
-        const updatedTodo = await updatedTodo(id, renamedTodo);
+        const updatedTodo = await updateTodo(addedTodo.id, renamedTodo);
         expect(updatedTodo.name).toBe(renamedTodo.name);
         const allTodos = await getTodos();
         expect(allTodos).toHaveLength(1);

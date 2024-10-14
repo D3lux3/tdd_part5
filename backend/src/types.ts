@@ -1,10 +1,10 @@
 import { InferType } from "yup";
-import { todoSchema } from "./utils/todoValidator";
+import { todoSchemaWithId } from "./utils/todoValidator";
 
 
-export interface Todo extends InferType<typeof todoSchema> {
+export interface Todo extends InferType<typeof todoSchemaWithId> {
     id: string;
 }
 
 
-export type TodoWithoutId = InferType<typeof todoSchema>;
+export type TodoWithoutId = InferType<typeof todoSchemaWithId>;
