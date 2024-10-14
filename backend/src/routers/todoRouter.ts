@@ -1,5 +1,5 @@
 import express from 'express';
-import { addNewTodo, getTodos, updateTodo } from '../services/todoService';
+import { addNewTodo, archiveCompletedTodos, getTodos, updateTodo } from '../services/todoService';
 
 const todoRouter = express.Router();
 
@@ -29,6 +29,15 @@ todoRouter.put('/:id', async (req, res) => {
         const todo = req.body;
         const updated = await updateTodo(id, todo);
         return res.status(200).send(updated);
+    } catch (error) {
+        return res.status(500).send({ error: JSON.stringify(error) });
+    }
+});
+
+todoRouter.delete('/archive', async (req, res) => {
+    try {
+        await archiveCompletedTodos();
+        return res.status(200).send();
     } catch (error) {
         return res.status(500).send({ error: JSON.stringify(error) });
     }
