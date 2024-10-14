@@ -67,4 +67,16 @@ describe('Todo database', () => {
         expect(allTodos).toHaveLength(1);
         expect(allTodos[0].name).toBe(updatedTodo.name);
     });
+
+    test('All completed todos can be archived', async () => {
+        const firstTodo = await addNewTodo({ name: 'first todo', done: true });
+        const secondTodo = await addNewTodo({ name: 'second todo', done: true });
+        const thirdTodo = await addNewTodo({ name: 'third todo', done: false });
+
+        expect(await getTodos()).toHaveLength(3);
+        await archiveCompletedTodos();
+        expect(await getTodos()).toHaveLength(1);
+        const allTodos = await getTodos();
+        expect(allTodos[0]).toEqual(thirdTodo);
+    });
 });
