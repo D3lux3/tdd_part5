@@ -67,5 +67,15 @@ describe('Todo api', () => {
         expect(updatedResponse.body.name).toBe(renamedTodo.name);
         expect(updatedResponse.body.done).toBe(newTodo.done);
     });
+
+    test('All completed todos can be archived', async () => {
+        await api.post('/todo').send({ name: 'First todo', done: true });
+        await api.post('/todo').send({ name: 'Second todo', done: true });
+        await api.post('/todo').send({ name: 'Third todo', done: false });
+        
+        await api.delete('/todo/archive').expect(200);
+        const todos = await api.get('/todo');
+        expect(todos.body).toHaveLength(1);
+    });
 });
 
