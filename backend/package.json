@@ -5,13 +5,19 @@
   "scripts": {
     "tsc": "tsc",
     "start:test": "NODE_ENV=test ts-node-dev src/index.ts",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "coverage": "c8 npm run test",
+    "mutation": "stryker run",
+    "test": "NODE_ENV=test jest --verbose --runInBand"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@stryker-mutator/core": "^8.6.0",
+    "@stryker-mutator/jest-runner": "^8.6.0",
+    "c8": "^10.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
@@ -22,11 +28,17 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.13",
     "@types/node": "^20.14.9",
+    "@types/supertest": "^6.0.2",
     "@types/uuid": "^10.0.0",
+    "jest": "^29.7.0",
     "prettier": "^3.3.2",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   }

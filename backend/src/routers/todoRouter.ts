@@ -16,7 +16,6 @@ todoRouter.get('/', async (req, res) => {
 todoRouter.post('/', async (req, res) => {
     try {
         const request = req.body;
-        console.log(req)
         const added = await addNewTodo(request);
         return res.status(200).send(added);
     } catch (error) {

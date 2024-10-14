@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  api-e2e:
+    build:
+      context: backend
+      dockerfile: Dockerfile.test
+    volumes:
+      - ./backend/:/usr/src/app
+    command: ["./wait-for-it.sh", "db-e2e:5432", "--", "npm", "run", "test", "--", "--color"]
+    tty: true
+    stdin_open: true
+    environment:
+      DATABASE_URL: postgres://webapp:secret@db-e2e:5432/postgres
+    ports:
+      - "1337:1337"
+
+  db-e2e:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: webapp
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
