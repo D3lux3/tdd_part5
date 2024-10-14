@@ -1,5 +1,5 @@
 import { Todo } from "../src/models";
-import { addNewTodo, deleteAllTodos, getTodos, updateTodo } from "../src/services/todoService";
+import { addNewTodo, archiveCompletedTodos, deleteAllTodos, getTodos, updateTodo } from "../src/services/todoService";
 
 
 describe('Todo database', () => {
@@ -69,14 +69,14 @@ describe('Todo database', () => {
     });
 
     test('All completed todos can be archived', async () => {
-        const firstTodo = await addNewTodo({ name: 'first todo', done: true });
-        const secondTodo = await addNewTodo({ name: 'second todo', done: true });
+        await addNewTodo({ name: 'first todo', done: true });
+        await addNewTodo({ name: 'second todo', done: true });
         const thirdTodo = await addNewTodo({ name: 'third todo', done: false });
 
         expect(await getTodos()).toHaveLength(3);
         await archiveCompletedTodos();
         expect(await getTodos()).toHaveLength(1);
         const allTodos = await getTodos();
-        expect(allTodos[0]).toEqual(thirdTodo);
+        expect(allTodos[0].get({plain: true})).toEqual(thirdTodo);
     });
 });
