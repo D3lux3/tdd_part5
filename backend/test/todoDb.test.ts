@@ -39,4 +39,17 @@ describe('Todo database', () => {
         expect(todos[0].done).toBe(addedTodo.done);
         expect(todos[0].id).toBe(addedTodo.id);
     });
+
+    test('Todo can be renamed', async () => {
+        const newTodo = { name: 'Test todo', done: false };
+        const addedTodo = await addNewTodo(newTodo);
+
+        const renamedTodo = { ...addedTodo, name: 'Updated todo' };
+
+        const updatedTodo = await updatedTodo(id, renamedTodo);
+        expect(updatedTodo.name).toBe(renamedTodo.name);
+        const allTodos = await getTodos();
+        expect(allTodos).toHaveLength(1);
+        expect(allTodos[0].name).toBe(renamedTodo.name);
+    });
 });
