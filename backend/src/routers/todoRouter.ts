@@ -19,7 +19,6 @@ todoRouter.post('/', async (req, res) => {
         const added = await addNewTodo(request);
         return res.status(200).send(added);
     } catch (error) {
-        console.log(error)
         return res.status(500).send({ error: JSON.stringify(error) });
     }
 });
