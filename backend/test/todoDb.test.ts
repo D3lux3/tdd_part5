@@ -51,4 +51,9 @@ describe('Todo database', () => {
         expect(allTodos).toHaveLength(1);
         expect(allTodos[0].name).toBe(renamedTodo.name);
     });
+
+    test('Non existing todo cannot be updated', async () => {
+        const newTodo = { id: 'this id does not exists', name: 'Test todo', done: false };
+        expect(updateTodo(newTodo.id, newTodo)).rejects.toThrow();
+    });
 });
