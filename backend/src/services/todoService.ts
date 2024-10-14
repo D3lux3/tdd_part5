@@ -29,3 +29,7 @@ export const addNewTodo = async (requestBody: Request | unknown) => {
 export const deleteAllTodos = async () => {
     await Todo.destroy({where: {}});
 };
+
+export const archiveCompletedTodos = async () => {
+    await Todo.destroy({where: {done: true}});
+};
