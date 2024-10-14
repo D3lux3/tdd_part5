@@ -1,5 +1,5 @@
 import express from 'express';
-import { addNewTodo, getTodos } from '../services/todoService';
+import { addNewTodo, getTodos, updateTodo } from '../services/todoService';
 
 const todoRouter = express.Router();
 
@@ -24,5 +24,15 @@ todoRouter.post('/', async (req, res) => {
     }
 });
 
+todoRouter.put('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const todo = req.body;
+        const updated = await updateTodo(id, todo);
+        return res.status(200).send(updated);
+    } catch (error) {
+        return res.status(500).send({ error: JSON.stringify(error) });
+    }
+});
 
 export default todoRouter;
