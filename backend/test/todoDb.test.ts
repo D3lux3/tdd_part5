@@ -56,4 +56,15 @@ describe('Todo database', () => {
         const newTodo = { id: 'this id does not exists', name: 'Test todo', done: false };
         expect(updateTodo(newTodo.id, newTodo)).rejects.toThrow();
     });
+
+    test('Todo can be marked as done', async () => {
+        const newTodo = { name: 'Test todo', done: false };
+        const addedTodo = await addNewTodo(newTodo);
+
+        const updatedTodo = await updateTodo(addedTodo.id, { ...addedTodo, done: true });
+        expect(updatedTodo.done).toBe(true);
+        const allTodos = await getTodos();
+        expect(allTodos).toHaveLength(1);
+        expect(allTodos[0].name).toBe(updatedTodo.name);
+    });
 });
