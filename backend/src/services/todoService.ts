@@ -1,4 +1,5 @@
 import { Todo } from "../models";
+import { TodoWithoutId } from "../types";
 import { todoSchema } from "../utils/todoValidator";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,7 +8,7 @@ export const getTodos = async () => {
     return todos;
 };
 
-export const addNewTodo = async (requestBody: Request) => {
+export const addNewTodo = async (requestBody: Request | TodoWithoutId) => {
     // try catch
     const validated = await todoSchema.validate(requestBody);
     const newTodo = await Todo.create({id: uuidv4() , ...validated});

@@ -2,7 +2,6 @@ import supertest from 'supertest';
 import app from '../src/app';
 import { Todo } from '../src/models';
 import { v4 as uuidv4 } from 'uuid';
-import exp from 'constants';
 
 
 const api = supertest(app);
