@@ -57,5 +57,15 @@ describe('Todo api', () => {
         const invalidTodo = { done: false };
         await api.post('/todo').send(invalidTodo).expect(500);
     });
+
+    test('Todo can be renamed', async () => {
+        const newTodo = { name: 'Rename me', done: false };
+        const response = await api.post('/todo').send(newTodo);
+        const renamedTodo = { ...response.body, name: 'Renamed todo' };
+
+        const updatedResponse = await api.put(`/todo/${renamedTodo.id}`).send(renamedTodo);
+        expect(updatedResponse.body.name).toBe(renamedTodo.name);
+        expect(updatedResponse.body.done).toBe(newTodo.done);
+    });
 });
 
