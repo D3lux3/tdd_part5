@@ -36,7 +36,7 @@ describe("Todo Component", () => {
     expect(mockHandler).toHaveBeenCalledTimes(1);
   });
 
-  test('Todo can be renamed', () => {
+  test('Todo can be renamed', async () => {
     const todo = {
         id: "1",
         name: "Test Todo",
@@ -48,14 +48,15 @@ describe("Todo Component", () => {
 
     const user = userEvent.setup();
     const todoName = screen.getByText(todo.name);
-    user.click(todoName);
+    await user.click(todoName);
 
     const input = screen.getByRole('textbox');
     expect(input).toBeInTheDocument();
-    user.type(input, 'New Todo Name');
+    await user.clear(input);
+    await user.type(input, 'New Todo Name');
 
     const saveButton = screen.getByText('Save');
-    user.click(saveButton);
+    await user.click(saveButton);
 
     expect(mockRenameHandler).toHaveBeenCalledTimes(1);
   });
