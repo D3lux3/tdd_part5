@@ -11,14 +11,15 @@ test.describe("Todo app", () => {
     })
 
     test("Hello world todo can be added to the page", async ({ page }) => {
-        await page.waitForLoadState('networkidle'); 
         
-        await page.getByTestId('taskname').first().waitFor();
-        await page.getByTestId('taskname').first().fill('Hello world');
+        await page.getByTestId('new-todo-input').first().waitFor();
+        await page.getByTestId('new-todo-input').first().fill('Hello world');
 
-        await page.getByTestId('addtask').first().waitFor();
-        await page.getByTestId('addtask').first().click();
+        await page.getByTestId('new-todo-save').first().waitFor();
+        await page.getByTestId('new-todo-save').first().click();
 
-        await expect(page.getByTestId('tasks')).toHaveText('Hello world | ❌');
+        const todoItem = await page.locator('.todo-list').first().getByTestId('todo-list-items').first();
+        const todoText = await todoItem.locator('p').first();
+        await expect(todoText).toHaveText('Hello world');
     })
 })

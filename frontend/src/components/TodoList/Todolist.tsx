@@ -41,7 +41,7 @@ const TodoList = ({ todos, archiveTodoHandler, createTodo }: TodoListProps) => {
       <button data-testid="todo-archive-all" onClick={archiveTodoHandler}>
         Archive Done Todos
       </button>
-      <ul data-testid="todo-list">
+      <ul data-testid="todo-list-items">
         {todos.map((todo) => (
           <Todo key={todo.id} {...todo} />
         ))}
