@@ -9,7 +9,7 @@ test('Renders Todo Component', () => {
         done: false
     }
 
-    render(<Todo todo={todo} />);
+    render(<Todo {...todo} />);
     const element = screen.getByText('Test Todo');
     expect(element).toBeDefined();
 });
