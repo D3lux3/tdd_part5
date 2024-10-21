@@ -24,7 +24,6 @@ test.describe("Todo app", () => {
     })
 
     test("Task can be added and marked as done", async ({ page }) => {
-        await page.pause();
         await page.getByTestId('new-todo-input').first().waitFor();
         await page.getByTestId('new-todo-input').first().fill('Mark me as done');
 
@@ -42,4 +41,28 @@ test.describe("Todo app", () => {
 
         await expect(todoDoneCheckbox).toBeChecked();
     })
+
+    test("Task can be renamed", async ({ page }) => {
+        await page.getByTestId('new-todo-input').first().waitFor();
+        await page.getByTestId('new-todo-input').first().fill('Rename me');
+
+        await page.getByTestId('new-todo-save').first().waitFor();
+        await page.getByTestId('new-todo-save').first().click();
+
+        const todoListItem = await page.locator('.todo-item').first();
+        const todoText = await todoListItem.locator('p').first();
+        await expect(todoText).toHaveText('Rename me');
+        
+        await todoText.click();
+
+        const renameInput = await todoListItem.getByTestId('rename-input').first();
+        const saveTodoButton = await todoListItem.getByTestId('rename-save-btn').first();
+        
+        await renameInput.fill('Renamed task');
+        await saveTodoButton.click();
+
+        await page.reload();
+
+        await expect(todoText).toHaveText('Renamed task');
+    });
 })
