@@ -5,11 +5,12 @@ interface TodoProps {
   name: string;
   done: boolean;
   toggleDone?: () => void;
-  renameTodo?: () => void;
+  renameTodoHandler?: (newName: string) => void;
 }
 
-const Todo = ({ id, name, done, toggleDone, renameTodo }: TodoProps) => {
+const Todo = ({ id, name, done, toggleDone, renameTodoHandler }: TodoProps) => {
   const [editing, setEditing] = useState(false);
+  const [newName, setNewName] = useState("");
 
   if (editing) {
     return (
@@ -17,12 +18,21 @@ const Todo = ({ id, name, done, toggleDone, renameTodo }: TodoProps) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            renameTodo && renameTodo();
+            renameTodoHandler && renameTodoHandler(newName);
+            setNewName("");
             setEditing(false);
           }}
         >
-          <input type="text" defaultValue={name} />
-          <button type="submit">Save</button>
+          <input
+            onChange={(event) => setNewName(event.target.value)}
+            name="name"
+            data-testid={"rename-input"}
+            type="text"
+            defaultValue={name}
+          />
+          <button data-testid={"rename-save-btn"} type="submit">
+            Save
+          </button>
         </form>
       </li>
     );

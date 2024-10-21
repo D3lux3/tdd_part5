@@ -61,9 +61,34 @@ const App = () => {
     }
   };
 
+  const renameTodo = async (id: string, newName: string) => {
+    try {
+      const todo = todos.find((todo) => todo.id === id);
+
+      if (!todo) {
+        throw new Error("Todo not found");
+      }
+
+      const updatedTodo = { ...todo, name: newName };
+      const response = await fetch(`${API_URL}/${todo.id}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedTodo),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const parsedResponse = await response.json();
+      const validatedResponse = await todoSchema.validate(parsedResponse);
+      setTodos(todos.map((todo) => (todo.id === id ? validatedResponse : todo)));
+    } catch (error) {
+      console.log("Error renaming todo", error);
+    }
+  };
+
   return (
     <div className="todo-container">
-      <TodoList todos={todos} createTodo={addNewTodo} toggleDone={toggleDone} />
+      <TodoList todos={todos} createTodo={addNewTodo} toggleDone={toggleDone} renameTodo={renameTodo}/>
     </div>
   );
 };

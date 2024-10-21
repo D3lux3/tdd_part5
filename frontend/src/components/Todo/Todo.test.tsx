@@ -44,7 +44,7 @@ describe("Todo Component", () => {
       };
 
     const mockRenameHandler = vi.fn();
-    render(<Todo {...todo} renameTodo={mockRenameHandler} />);
+    render(<Todo {...todo} renameTodoHandler={mockRenameHandler} />);
 
     const user = userEvent.setup();
     const todoName = screen.getByText(todo.name);

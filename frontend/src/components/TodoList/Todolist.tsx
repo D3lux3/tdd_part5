@@ -7,7 +7,7 @@ interface TodoListProps {
   archiveTodoHandler?: () => void;
   createTodo?: (newTodo: TodoWithoutId) => void;
   toggleDone?: (id: string) => void;
-  renameTodo?: (id: string) => void;
+  renameTodo?: (id: string, newName: string) => void;
 }
 
 const TodoList = ({ todos, archiveTodoHandler, createTodo, toggleDone, renameTodo }: TodoListProps) => {
@@ -49,7 +49,7 @@ const TodoList = ({ todos, archiveTodoHandler, createTodo, toggleDone, renameTod
             key={todo.id}
             {...todo}
             toggleDone={toggleDone ? () => toggleDone(todo.id) : undefined}
-            renameTodo={renameTodo ? () => renameTodo(todo.id) : undefined}
+            renameTodoHandler={renameTodo ? (newName: string) => renameTodo(todo.id, newName) : undefined}
           />
         ))}
       </ul>
