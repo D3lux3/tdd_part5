@@ -34,7 +34,7 @@ describe("Todo List Component", () => {
 
   test("Todo can be added to the list", async () => {
     const mockCreateTodoHandler = vi.fn();
-    render(<TodoList createTodo={mockCreateTodoHandler}/>);
+    render(<TodoList todos={[]} createTodo={mockCreateTodoHandler}/>);
     
     const newTodoInputElement = screen.getByTestId('new-todo-input');
     const newTodoSaveButton = screen.getByTestId('new-todo-save');
