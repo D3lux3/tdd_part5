@@ -21,14 +21,9 @@ const TodoList = ({ todos, archiveTodoHandler, createTodo }: TodoListProps) => {
       setTodoInputValue("");
       return createTodo(newTodo);
     }
-    try {
-        // Add new todo functionality
-    } catch (error) {
-      console.error(error);
-    }
   };
   return (
-    <>
+    <div className="todo-list">
       <form onSubmit={createTodoHandler}>
         <a>Todo name</a>
         <input
@@ -51,7 +46,7 @@ const TodoList = ({ todos, archiveTodoHandler, createTodo }: TodoListProps) => {
           <Todo key={todo.id} {...todo} />
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

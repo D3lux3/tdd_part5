@@ -28,7 +28,7 @@ const Todo = ({ id, name, done, toggleDone, renameTodo }: TodoProps) => {
     );
   }
   return (
-    <li data-testid={id}>
+    <li className="todo-item" data-testid={id}>
       <p onClick={() => setEditing(true)}>{name}</p>
       <input type="checkbox" defaultChecked={done} name="done" onChange={() => toggleDone && toggleDone()} />
     </li>
