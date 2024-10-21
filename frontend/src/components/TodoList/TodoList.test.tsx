@@ -12,7 +12,7 @@ describe("Todo List Component", () => {
     ];
 
     render(<TodoList todos={intitialTodos} />);
-    const todoListElement = screen.getByTestId("todo-list");
+    const todoListElement = screen.getByTestId("todo-list-items");
     expect(todoListElement).toBeInTheDocument();
     expect(todoListElement.children).toHaveLength(intitialTodos.length);
   });
