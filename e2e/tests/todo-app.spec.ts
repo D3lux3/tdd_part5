@@ -65,4 +65,31 @@ test.describe("Todo app", () => {
 
         await expect(todoText).toHaveText('Renamed task');
     });
+
+    test("Completed tasks can be archived", async ({ page }) => {
+
+        for (let i = 1; i <= 3; i++) {
+            await page.getByTestId('new-todo-input').first().waitFor();
+            await page.getByTestId('new-todo-input').first().fill(`Task ${i}`);
+    
+            await page.getByTestId('new-todo-save').first().waitFor();
+            await page.getByTestId('new-todo-save').first().click();
+        }
+
+
+        const todoItems = await page.locator('.todo-item').all();
+        const firstTodoItem = todoItems[0];
+        const secondTodoItem = todoItems[1];
+        const firstTodoCheckbox = await firstTodoItem.getByRole('checkbox').first();
+        const secondTodoCheckbox = await secondTodoItem.getByRole('checkbox').first();
+
+        await firstTodoCheckbox.click();
+        await secondTodoCheckbox.click();
+
+        const archiveAllButton = await page.getByTestId('todo-archive-all').first();
+        await archiveAllButton.click();
+
+        await page.reload();
+        expect(await page.locator('.todo-item').count()).toBe(1);
+    });
 })
