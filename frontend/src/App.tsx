@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Todo, TodoWithoutId } from './types';
+import { TodoType, TodoWithoutId } from './types';
 import { todoSchema } from './validationSchemas/TodoValidationSchema';
 
 const API_URL = 'http://localhost:1337/todo'
@@ -19,7 +19,7 @@ const addNewTodo = async (newTodo: TodoWithoutId) => {
 }
 
 const App = () => {
-  const [ todos, setTodos ] = useState<Todo[]>([]);
+  const [ todos, setTodos ] = useState<TodoType[]>([]);
   const [ todoInputValue, setTodoInputValue ] = useState<string>('');
 
 
