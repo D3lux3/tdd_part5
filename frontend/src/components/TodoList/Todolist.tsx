@@ -6,17 +6,19 @@ interface TodoListProps {
   todos: TodoType[];
   archiveTodoHandler?: () => void;
   createTodo?: (newTodo: TodoWithoutId) => void;
+  toggleDone?: (id: string) => void;
+  renameTodo?: (id: string) => void;
 }
 
-const TodoList = ({ todos, archiveTodoHandler, createTodo }: TodoListProps) => {
+const TodoList = ({ todos, archiveTodoHandler, createTodo, toggleDone, renameTodo }: TodoListProps) => {
   const [todoInputValue, setTodoInputValue] = useState<string>("");
 
   const createTodoHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const newTodo = {
-        name: todoInputValue,
-        done: false,
-    }
+      name: todoInputValue,
+      done: false,
+    };
     if (createTodo) {
       setTodoInputValue("");
       return createTodo(newTodo);
@@ -43,7 +45,12 @@ const TodoList = ({ todos, archiveTodoHandler, createTodo }: TodoListProps) => {
       </button>
       <ul data-testid="todo-list-items">
         {todos.map((todo) => (
-          <Todo key={todo.id} {...todo} />
+          <Todo
+            key={todo.id}
+            {...todo}
+            toggleDone={toggleDone ? () => toggleDone(todo.id) : undefined}
+            renameTodo={renameTodo ? () => renameTodo(todo.id) : undefined}
+          />
         ))}
       </ul>
     </div>
