@@ -86,9 +86,26 @@ const App = () => {
     }
   };
 
+  const archiveTodos = async () => {
+    try {
+      const response = await fetch(`${API_URL}/archive`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        setTodos(todos.filter((todo) => !todo.done));
+      }
+      throw new Error("Error archiving todos");
+    } catch (error) {
+      console.log(error);
+    }
+  };  
+
   return (
     <div className="todo-container">
-      <TodoList todos={todos} createTodo={addNewTodo} toggleDone={toggleDone} renameTodo={renameTodo}/>
+      <TodoList todos={todos} createTodo={addNewTodo} toggleDone={toggleDone} renameTodo={renameTodo} archiveTodoHandler={archiveTodos}/>
     </div>
   );
 };
