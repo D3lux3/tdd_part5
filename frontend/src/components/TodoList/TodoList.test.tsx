@@ -44,6 +44,6 @@ describe("Todo List Component", () => {
     await user.click(newTodoSaveButton);
 
     expect(mockCreateTodoHandler).toHaveBeenCalledTimes(1);
-    expect(mockCreateTodoHandler.mock.calls[0][0]).toBe('New Todo');
+    expect(mockCreateTodoHandler.mock.calls[0][0]).toStrictEqual({ name: 'New Todo', done: false });
   });
 });
