@@ -13,7 +13,7 @@ const Todo = ({ id, name, done, toggleDone, renameTodo }: TodoProps) => {
 
   if (editing) {
     return (
-      <li data-testid={id}>
+      <li className="todo-item" data-testid={id}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
