@@ -14,5 +14,6 @@ describe("Todo List Component", () => {
     render(<TodoList todos={intitialTodos} />);
     const todoListElement = screen.getByTestId("todo-list");
     expect(todoListElement).toBeInTheDocument();
+    expect(todoListElement.children).toHaveLength(intitialTodos.length);
   });
 });
