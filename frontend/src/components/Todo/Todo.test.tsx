@@ -18,7 +18,7 @@ test('Renders Todo Component', () => {
     expect(element).toHaveTextContent(todo.name);
 });
 
-test('Clicking checkbox calls handler once', async () => {
+test('Checkbox click changes done state', async () => {
     const todo = {
         id: '1',
         name: 'Test Todo',
@@ -30,8 +30,11 @@ test('Clicking checkbox calls handler once', async () => {
     
     const user = userEvent.setup();
     const checkbox = screen.getByRole('checkbox');
+
+    expect(checkbox).not.toBeChecked();
     await user.click(checkbox);
 
+    expect(checkbox).toBeChecked();
     expect(mockHandler).toHaveBeenCalledTimes(1);
 });
 });
