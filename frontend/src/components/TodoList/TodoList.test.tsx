@@ -27,7 +27,7 @@ describe("Todo List Component", () => {
     render(<TodoList todos={intitialTodos} archiveTodoHandler={mockArchiveHandler} />);
     const user = userEvent.setup();
     
-    const archiveDoneTodosButton = screen.getByText('Archive Done Todos');
+    const archiveDoneTodosButton = screen.getByTestId('todo-archive-all');
     await user.click(archiveDoneTodosButton);
     expect(mockArchiveHandler).toHaveBeenCalledTimes(1);
   });

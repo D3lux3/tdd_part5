@@ -9,7 +9,7 @@ interface TodoListProps {
 const TodoList = ({ todos, archiveTodoHandler }: TodoListProps) => {
   return (
     <>
-      <button onClick={archiveTodoHandler}>Archive Done Todos</button>
+      <button data-testid="todo-archive-all" onClick={archiveTodoHandler}>Archive Done Todos</button>
       <ul data-testid="todo-list">
         {todos.map((todo) => (
           <Todo key={todo.id} {...todo} />
