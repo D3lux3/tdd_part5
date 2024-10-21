@@ -31,4 +31,19 @@ describe("Todo List Component", () => {
     await user.click(archiveDoneTodosButton);
     expect(mockArchiveHandler).toHaveBeenCalledTimes(1);
   });
+
+  test("Todo can be added to the list", async () => {
+    const mockCreateTodoHandler = vi.fn();
+    render(<TodoList createTodo={mockCreateTodoHandler}/>);
+    
+    const newTodoInputElement = screen.getByTestId('new-todo-input');
+    const newTodoSaveButton = screen.getByTestId('new-todo-save');
+
+    const user = userEvent.setup();
+    await user.type(newTodoInputElement, 'New Todo');
+    await user.click(newTodoSaveButton);
+
+    expect(mockCreateTodoHandler).toHaveBeenCalledTimes(1);
+    expect(mockCreateTodoHandler.mock.calls[0][0]).toBe('New Todo');
+  });
 });
