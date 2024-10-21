@@ -35,4 +35,28 @@ describe("Todo Component", () => {
     expect(checkbox).toBeChecked();
     expect(mockHandler).toHaveBeenCalledTimes(1);
   });
+
+  test('Todo can be renamed', () => {
+    const todo = {
+        id: "1",
+        name: "Test Todo",
+        done: false,
+      };
+
+    const mockRenameHandler = vi.fn();
+    render(<Todo {...todo} renameTodo={mockRenameHandler} />);
+
+    const user = userEvent.setup();
+    const todoName = screen.getByText(todo.name);
+    user.click(todoName);
+
+    const input = screen.getByRole('textbox');
+    expect(input).toBeInTheDocument();
+    user.type(input, 'New Todo Name');
+
+    const saveButton = screen.getByText('Save');
+    user.click(saveButton);
+
+    expect(mockRenameHandler).toHaveBeenCalledTimes(1);
+  });
 });
