@@ -10,7 +10,7 @@ const Todo = ({id, name, done}: TodoProps) => {
 
 
     return (
-        <li>
+        <li data-testid={id}>
             {name}
         </li>
     )
