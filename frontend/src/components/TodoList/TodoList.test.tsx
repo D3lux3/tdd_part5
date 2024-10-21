@@ -16,4 +16,19 @@ describe("Todo List Component", () => {
     expect(todoListElement).toBeInTheDocument();
     expect(todoListElement.children).toHaveLength(intitialTodos.length);
   });
+
+  test("Clicking archive all button calls handler once", async () => {
+    const intitialTodos = [
+        { id: "1", name: "Test Todo 1", done: false },
+        { id: "2", name: "Test Todo 2", done: true },
+        { id: "3", name: "Test Todo 3", done: false },
+      ];
+    const mockArchiveHandler = vi.fn();
+    render(<TodoList todos={intitialTodos} archiveTodoHandler={mockArchiveHandler} />);
+    const user = userEvent.setup();
+    
+    const archiveDoneTodosButton = screen.getByText('Archive Done Todos');
+    await user.click(archiveDoneTodosButton);
+    expect(mockArchiveHandler).toHaveBeenCalledTimes(1);
+  });
 });
